@@ -3,6 +3,7 @@ import './App.css';
 import Projects from './components/Projects';
 import Add from './components/Add';
 import uuid from 'uuid';
+import unirest from 'unirest';
 
 class App extends Component {
   constructor() {
@@ -14,6 +15,13 @@ class App extends Component {
   }
 
   getTodos(){
+    unirest.get("https://jsonplaceholder.typicode.com/todos")
+            .end(function(ew){
+              // console.log('wfwefwfwhefuwie' +ew.body);
+              for(var i=0;i<ew.body.length;i++){
+                console.log(ew.body[i].title);
+              }
+            });
     var url = "https://jsonplaceholder.typicode.com/todos";
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
@@ -73,7 +81,6 @@ class App extends Component {
     let style = {
       color: "red"
     }
-    console.log(this.state.todos);
     return (
       <div className="App">
         <center><h1 style={style} className="hi">{this.props.name}</h1></center>
